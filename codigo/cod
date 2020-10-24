@@ -1,0 +1,1 @@
+        <input type="text" id="nombre" name="nombre" value="<?php echo $fecha=date("d-m-y"); ?>"> fecha <br><br>
