@@ -10,16 +10,17 @@ class Categoria{
         if(!$resultado=$db->query($consulta)){
             die('Error al conectar a la base de datos o los datos son incorrectos['. $db->error .']');
         }
-        while($fila=$resultado->fetch_assoc()){
+        while($resultado->fetch_assoc()){
             $contador+=1;
         }
         if($contador!="0"){
             mysqli_query($db,"UPDATE categorias SET descripcion='$nombre', fecha_modificacion=CURDATE(), usuario_modificacion='$user' WHERE codigo_categoria='$codigo' ") OR
             die (mysqli_error($db));
-            header("location: pre_consultar_categorias.php?edi=y");
+            $_SESSION['status'] = "Se actualizo la categorias";
+            header("location: pre_consultar_categorias.php?");
         }
         if($contador=="0"){
-            echo "No se actualizo la categoria";
+            $_SESSION['status'] = "No se actualizo la categorias";
         }
     }
 }

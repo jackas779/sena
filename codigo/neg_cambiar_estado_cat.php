@@ -1,6 +1,7 @@
 <?php
 class Categoria{
     function estado($id){
+        session_start();
         include("conexion.php");
         $consulta= "SELECT * FROM categorias WHERE id_categorias='$id'";
         if(!$resultado=$db->query($consulta)){
