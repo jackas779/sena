@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-10-2020 a las 01:57:22
+-- Tiempo de generación: 26-10-2020 a las 21:38:10
 -- Versión del servidor: 5.5.24-log
 -- Versión de PHP: 5.4.3
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `categorias` (
   `usuario_creacion` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `fk_id_estado` varchar(5) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id_categorias`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=16 ;
 
 --
 -- Volcado de datos para la tabla `categorias`
@@ -48,8 +48,7 @@ INSERT INTO `categorias` (`id_categorias`, `codigo_categoria`, `fecha_creacion`,
 (8, '000124', '2020-10-22', '2020-10-16', '', 'mouse', 'ardila', '1'),
 (9, '000234', '2020-10-22', '2020-10-23', 'ardila', 'Mesas', 'ardila', '2'),
 (10, '00124', '2020-10-22', '2020-10-23', 'ardila', 'Portatiles', 'ardila', '2'),
-(11, '000123456', '2020-10-23', NULL, '', 'prueba', 'ardila', '1'),
-(12, '1234567', '2020-10-23', '2020-10-24', 'ardila', 'prueba2', 'ardila', '1');
+(11, '000123456', '2020-10-23', '2020-10-25', 'ardila', 'prueba', 'ardila', '1');
 
 -- --------------------------------------------------------
 
@@ -161,13 +160,38 @@ INSERT INTO `permisos` (`id_permiso`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE IF NOT EXISTS `productos` (
+  `id_product` int(5) NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `codigo_barra` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `existencia` varchar(5) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha_modificacion` date DEFAULT NULL,
+  `fecha_creacion` date NOT NULL,
+  `usuario_creacion` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `usuario_modificacion` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `fk_id_estado` varchar(4) COLLATE utf8_spanish_ci NOT NULL,
+  `fk_id_categoria` varchar(4) COLLATE utf8_spanish_ci NOT NULL,
+  `fk_id_proveedor` varchar(4) COLLATE utf8_spanish_ci NOT NULL,
+  `fk_id_marca` varchar(4) CHARACTER SET utf8 COLLATE utf8_swedish_ci NOT NULL,
+  PRIMARY KEY (`id_product`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `proveedores`
 --
 
 CREATE TABLE IF NOT EXISTS `proveedores` (
   `id_proveedor` int(5) NOT NULL AUTO_INCREMENT,
   `fecha_creacion` date NOT NULL,
-  `fecha_modificacion` date NOT NULL,
+  `fecha_modificacion` date DEFAULT NULL,
+  `nombre` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `direccion` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `telefono` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(55) COLLATE utf8_spanish_ci NOT NULL,
@@ -175,7 +199,14 @@ CREATE TABLE IF NOT EXISTS `proveedores` (
   `usuario_modificacion` varchar(11) COLLATE utf8_spanish_ci NOT NULL,
   `fk_id_estado` varchar(4) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id_proveedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `proveedores`
+--
+
+INSERT INTO `proveedores` (`id_proveedor`, `fecha_creacion`, `fecha_modificacion`, `nombre`, `direccion`, `telefono`, `email`, `usuario_creacion`, `usuario_modificacion`, `fk_id_estado`) VALUES
+(1, '2020-10-26', '2020-10-26', 'telmex', 'calle sin precion ', '12345678', 'asd@gmail.com', 'ardila', 'ardila', '1');
 
 -- --------------------------------------------------------
 
