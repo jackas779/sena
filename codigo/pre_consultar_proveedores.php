@@ -46,7 +46,7 @@ include("seguridad_admin.php")
         <td>Usuario Creador</td>
         <td>Telefono</td>
         <td colspan="4">Acciones</td>
-        <td><button type="submit"><i class="fas fa-plus"></i><a href="pre_crear_categorias.php">Crear Categorias</a></button></td>
+        <td><button type="submit"><i class="fas fa-plus"></i><a href="pre_crear_proveedores.php">Crear Categorias</a></button></td>
     </tr>
     <?php
     include("conexion.php");
@@ -187,7 +187,7 @@ include("seguridad_admin.php")
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Detalles</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -199,7 +199,7 @@ include("seguridad_admin.php")
             <input type="hidden" name="id_prov"  id="cod_proveedor">
             <input type="text" class="form-control proveedor" id="cod" disabled>
             <label for="recipient-name" class="col-form-label">Nombre:</label>
-            <input type="text" class="form-control" id="email_det" >
+            <input type="text" class="form-control" id="nombre_det" >
             <label for="recipient-name" class="col-form-label">Direcci&oacute;n:</label>
             <input type="text" class="form-control" id="direccion_det" >
             <label for="recipient-name" class="col-form-label">Telefono:</label>
@@ -213,13 +213,12 @@ include("seguridad_admin.php")
             <label for="recipient-name" class="col-form-label">Fecha modificaci&oacute;n:</label>
             <input type="text" class="form-control" id="fecha_mod_det" >
             <label for="recipient-name" class="col-form-label">Uusario modificador:</label>
-            <input type="text" class="form-control" id="usuairo_mod_det" >
+            <input type="text" class="form-control" id="usuario_mod_det" >
           </div>
           </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
@@ -280,7 +279,7 @@ $('.info_btn').click(function(e){
     var action = 'infocate';
     $.ajax({
         type: "POST",
-        url: "edit_prov_ajax.php",
+        url: "det_prov_ajax.php",
         data: {actt:action,prov:proveedor},
         async:true,
         success: function (response) {
@@ -291,11 +290,12 @@ $('.info_btn').click(function(e){
                 $('#nombre_det').val(info.nombre);
                 $('#direccion_det').val(info.direccion);
                 $('#telefono_det').val(info.telefono);
-                $('#fecha_cre_det').val(info.email);
-                $('#fecha_mod_det').val(info.email);
-                $('#usuario_cre_det').val(info.email);
-                $('#usuario_mod_det').val(info.email);
+                $('#fecha_cre_det').val(info.fecha_creacion);
+                $('#fecha_mod_det').val(info.fecha_modificacion);
+                $('#usuario_cre_det').val(info.usuario_creacion);
+                $('#usuario_mod_det').val(info.usuario_modificacion);
                 $('#email_det').val(info.email);
+                console.log(info);
 
                
 

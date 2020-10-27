@@ -18,8 +18,7 @@ include("seguridad_admin.php")
 
    </div>
    <div id="body">
-       <form action="neg_dat_crear_categorias.php" method="post" autocomplete="off" name="crear_categorias" align="center">
-        <input type="text" id="codigo" name="codigo" required> codigo <br><br>
+       <form action="neg_dat_crear_marcas.php" method="post" autocomplete="off" name="crear_categorias" align="center">
         <input type="text" id="nombre" name="nombre" required> nombre <br><br>
         <input type="hidden" id="usuario" name="usuario" value="<?php echo $user=$_SESSION['username'];?>" >
         <input type="submit">

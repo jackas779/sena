@@ -104,20 +104,20 @@ include("seguridad_admin.php")
 
     ?>
  </table>
-   <!-- Modal eliminacion de productos -->
-<div class="modal fade" id="eliminar_categoria" tabindex="-1" aria-labelledby="eliminar_categoriaLabel" aria-hidden="true">
+    <!-- Modal eliminacion de proveedores -->
+<div class="modal fade" id="eliminar_proveedor" tabindex="-1" aria-labelledby="eliminar_proveedorLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="eliminar_categoriaLabel">Eliminar Categoria</h5>
+        <h5 class="modal-title" id="eliminar_proveedorLabel">Eliminar Categoria</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-        <form action="neg_dat_eliminar_categorias.php" method="POST">
+        <form action="neg_dat_eliminar_proveedor.php" method="POST">
             <div class="modal-body">
-                <input type="hidden" name="id_cod" id="cod_id">
-                <h4>¿Estas Seguro de eliminar esta categoria ?</h4>
+                <input type="hidden" name="id" id="cod_id">
+                <h4>¿Estas Seguro de eliminar este proveedor ?</h4>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -127,31 +127,43 @@ include("seguridad_admin.php")
     </div>
   </div>
 </div>
-<!-- Modal eliminacion de productos -->
+<!-- Modal eliminacion de proveedores -->
 
-<!-- Modal editar productos -->
+<!-- Modal editar proveedores -->
 
-<div class="modal fade" id="editar_cat" tabindex="-1" role="dialog" aria-labelledby="editar_catLabel" aria-hidden="true">
+<div class="modal fade" id="editar_prov" tabindex="-1" role="dialog" aria-labelledby="editar_provLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editar_catLabel">Modal title</h5>
+        <h5 class="modal-title" id="editar_provLabel">Editar Proveedor</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="neg_dat_editar_categorias.php" method="post">
+      <form action="neg_dat_editar_proveedores.php" method="post">
       <div class="modal-body">   
           
       <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Cod_producto:</label>
-            <input type="hidden" name="codigo"  id="cod_categoria">
-            <input type="text" class="form-control categorias" id="cod" disabled>
+            <label for="recipient-name" class="col-form-label">Id producto:</label>
+            <input type="hidden" name="id_prov"  id="cod_proveedor">
+            <input type="text" class="form-control proveedor" id="cod" disabled>
           </div>
           
       <div class="form-group">
             <label for="recipient-name" class="col-form-label">Nombre:</label>
-            <input type="text" class="form-control" id="nombre_cate" name="descripcion">
+            <input type="text" class="form-control" id="nombre_prov" name="nombre">
+          </div>
+      <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Direcci&oacuten:</label>
+            <input type="text" class="form-control" id="direccion_prov" name="direccion">
+          </div>
+      <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Telefono:</label>
+            <input type="text" class="form-control" id="telefono_prov" name="telefono">
+          </div>
+      <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Correo Electronico:</label>
+            <input type="text" class="form-control" id="email_prov" name="email">
           </div>
       </div>
       <div class="modal-footer">
@@ -162,8 +174,49 @@ include("seguridad_admin.php")
     </div>
   </div>
 </div>
-<!-- Modal editar productos -->
-
+<!-- Modal editar proveedores -->
+<!-- Modal detalles proveedores-->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Detalles</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form action="">
+      <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Id producto:</label>
+            <input type="hidden" name="id_prov"  id="cod_proveedor">
+            <input type="text" class="form-control proveedor" id="cod" disabled>
+            <label for="recipient-name" class="col-form-label">Nombre:</label>
+            <input type="text" class="form-control" id="nombre_det" >
+            <label for="recipient-name" class="col-form-label">Direcci&oacute;n:</label>
+            <input type="text" class="form-control" id="direccion_det" >
+            <label for="recipient-name" class="col-form-label">Telefono:</label>
+            <input type="text" class="form-control" id="telefono_det" >
+            <label for="recipient-name" class="col-form-label">Email:</label>
+            <input type="text" class="form-control" id="email_det" >
+            <label for="recipient-name" class="col-form-label">Fecha de creacion:</label>
+            <input type="text" class="form-control" id="fecha_cre_det" >
+            <label for="recipient-name" class="col-form-label">Usuario creador:</label>
+            <input type="text" class="form-control" id="usuario_cre_det" >
+            <label for="recipient-name" class="col-form-label">Fecha modificaci&oacute;n:</label>
+            <input type="text" class="form-control" id="fecha_mod_det" >
+            <label for="recipient-name" class="col-form-label">Uusario modificador:</label>
+            <input type="text" class="form-control" id="usuario_mod_det" >
+          </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal detalles proveedores-->
 </div>
    <div id="footer">
 
@@ -171,24 +224,26 @@ include("seguridad_admin.php")
 <script>
     $(document).ready(function(){
 
-//modal editar productos
+//scrip editar proveedores
 $('.act_btn').click(function(e){
     e.preventDefault();
-    var categoria = $(this).attr('cat');
+    var proveedor = $(this).attr('prov');
     var action = 'infocate';
     $.ajax({
         type: "POST",
-        url: "edit_cat_ajax.php",
-        data: {actt:action,cate:categoria},
+        url: "edit_prov_ajax.php",
+        data: {actt:action,prov:proveedor},
         async:true,
         success: function (response) {
             if(response !='error'){
+                $('#editar_prov').modal('show');
                 var info = JSON.parse(response);
-
-                $('#cod_categoria').val(info.codigo_categoria);
-                $('.categorias').val(info.codigo_categoria);
-                $('#nombre_cate').val(info.descripcion);
-                $('#editar_cat').modal('show');
+                $('#cod_proveedor').val(info.id_proveedor);
+                $('.proveedor').val(info.id_proveedor);
+                $('#nombre_prov').val(info.nombre);
+                $('#direccion_prov').val(info.direccion);
+                $('#telefono_prov').val(info.telefono);
+                $('#email_prov').val(info.email);              
 
             }
             if(response =='error'){
@@ -197,18 +252,57 @@ $('.act_btn').click(function(e){
         },
         error:function(error){
             console.log(error);
-        }
+        },
     });
     
 });
-//modal confirmacion eliminar productos
+//modal confirmacion eliminar proveedores
 $('.delete_btn').click(function (e) { 
     e.preventDefault();
 
-    var id_cat = $(this).closest('tr').find('.id_cat').text();
+    var id_prov = $(this).closest('tr').find('.id_prov').text();
     //console.log(id_cat);
-    $('#cod_id').val(id_cat);
-    $('#eliminar_categoria').modal('show');
+    $('#cod_id').val(id_prov);
+    $('#eliminar_proveedor').modal('show');
+});
+// Funcion del modal de detalles
+$('.info_btn').click(function(e){
+    e.preventDefault();
+    var proveedor = $(this).attr('prov');
+    var action = 'infocate';
+    $.ajax({
+        type: "POST",
+        url: "det_prov_ajax.php",
+        data: {actt:action,prov:proveedor},
+        async:true,
+        success: function (response) {
+            if(response !='error'){
+                var info = JSON.parse(response);
+                $('#cod_proveedor').val(info.id_proveedor);
+                $('.proveedor').val(info.id_proveedor);
+                $('#nombre_det').val(info.nombre);
+                $('#direccion_det').val(info.direccion);
+                $('#telefono_det').val(info.telefono);
+                $('#fecha_cre_det').val(info.fecha_creacion);
+                $('#fecha_mod_det').val(info.fecha_modificacion);
+                $('#usuario_cre_det').val(info.usuario_creacion);
+                $('#usuario_mod_det').val(info.usuario_modificacion);
+                $('#email_det').val(info.email);
+                console.log(info);
+
+               
+
+            }
+            if(response =='error'){
+                alert("categoria inactiva");
+            }
+        },
+        error:function(error){
+            console.log(error);
+        },
+    });
+    $('#exampleModalLong').modal('show');
+    
 });
 });
 </script>

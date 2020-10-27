@@ -13,6 +13,7 @@
         <li><a href="pre_consultar_categorias.php">categorias</a></li>
         <li><a href="pre_consultar_proveedores.php">proveedores</a></li>
         <li><a href="pre_consultar_productos.php">productos</a></li>
+        <li><a href="pre_consultar_marcas.php">marcas</a></li>
         <li><a href="pre_consultar_reportes.php">reportes</a></li>
         <li><a href="salir.php">salir</a></li>
     </nav>
