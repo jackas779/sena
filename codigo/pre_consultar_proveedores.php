@@ -62,10 +62,10 @@ include("seguridad_admin.php")
         $bdireccion=stripslashes($fila['direccion']);
         $bfk_id_estado=stripslashes($fila['fk_id_estado']);
         $btelefono=stripslashes($fila['telefono']);
-        $bemail=stripslashes($fila['email']);
+        $bemail=stripslashes($fila['email_prov']);
         $busuario_creacion=stripslashes($fila['usuario_creacion']);
         $busuario_modificacion=stripslashes($fila['usuario_modificacion']);
-        $busuario_modificacion=stripslashes($fila['nombre']);
+        $bnombre_prov=stripslashes($fila['nombre_prov']);
 
         if($bfk_id_estado=="1"){
             $bfk_id_estado='activo';
@@ -82,7 +82,7 @@ include("seguridad_admin.php")
         echo "<tr>";
         echo "<td>#</td>";
         echo "<td class='id_prov'>$bid_proveedor</td>";
-        echo "<td>$busuario_modificacion</td>";
+        echo "<td>$bnombre_prov</td>";
         echo "<td>$bfk_id_estado</td>";
         echo "<td>$bfecha_creacion</td>";
         echo "<td>$bdireccion</td>";
@@ -238,7 +238,7 @@ $('.act_btn').click(function(e){
     var action = 'infocate';
     $.ajax({
         type: "POST",
-        url: "edit_prov_ajax.php",
+        url: "det_prov_ajax.php",
         data: {actt:action,prov:proveedor},
         async:true,
         success: function (response) {
@@ -247,10 +247,10 @@ $('.act_btn').click(function(e){
                 var info = JSON.parse(response);
                 $('#cod_proveedor').val(info.id_proveedor);
                 $('.proveedor').val(info.id_proveedor);
-                $('#nombre_prov').val(info.nombre);
+                $('#nombre_prov').val(info.nombre_prov);
                 $('#direccion_prov').val(info.direccion);
                 $('#telefono_prov').val(info.telefono);
-                $('#email_prov').val(info.email);              
+                $('#email_prov').val(info.email_prov);              
 
             }
             if(response =='error'){
@@ -287,17 +287,14 @@ $('.info_btn').click(function(e){
                 var info = JSON.parse(response);
                 $('#cod_proveedor').val(info.id_proveedor);
                 $('.proveedor').val(info.id_proveedor);
-                $('#nombre_det').val(info.nombre);
+                $('#nombre_det').val(info.nombre_prov);
                 $('#direccion_det').val(info.direccion);
                 $('#telefono_det').val(info.telefono);
                 $('#fecha_cre_det').val(info.fecha_creacion);
                 $('#fecha_mod_det').val(info.fecha_modificacion);
                 $('#usuario_cre_det').val(info.usuario_creacion);
                 $('#usuario_mod_det').val(info.usuario_modificacion);
-                $('#email_det').val(info.email);
-                console.log(info);
-
-               
+                $('#email_det').val(info.email_prov);               
 
             }
             if(response =='error'){

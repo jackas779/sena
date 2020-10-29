@@ -57,7 +57,7 @@ include("seguridad_admin.php")
       }
       while ($fila = $resultado->fetch_assoc()) {
         $bid_marca = stripslashes($fila['id_marca']);
-        $bnombre = stripslashes($fila['nombre']);
+        $bnombre = stripslashes($fila['nombre_marca']);
         $bfecha_creacion = stripslashes($fila['fecha_creacion']);
         $bfecha_modificacion = stripslashes($fila['fecha_modificacion']);
         $busuario_modificacion = stripslashes($fila['usuario_modificacion']);
@@ -192,7 +192,7 @@ include("seguridad_admin.php")
 
               $('#cod_marca').val(info.id_marca);
               $('.marca').val(info.id_marca);
-              $('#nombre_mar').val(info.nombre);
+              $('#nombre_mar').val(info.nombre_marca);
               $('#editar_marca').modal('show');
 
 

@@ -14,7 +14,7 @@ class Categoria{
             $contador+=1;
         }
         if($contador!="0"){
-            mysqli_query($db,"UPDATE categorias SET descripcion='$nombre', fecha_modificacion=CURDATE(), usuario_modificacion='$user' WHERE codigo_categoria='$codigo' ") OR
+            mysqli_query($db,"UPDATE categorias SET cat_descripcion='$nombre', fecha_modificacion=CURDATE(), usuario_modificacion='$user' WHERE codigo_categoria='$codigo' ") OR
             die (mysqli_error($db));
             $_SESSION['status'] = "Se actualizo la categorias";
             header("location: pre_consultar_categorias.php");

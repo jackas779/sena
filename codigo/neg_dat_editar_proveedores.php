@@ -14,8 +14,8 @@ class Proveedor{
             $contador+=1;
         }
         if($contador!="0"){
-            mysqli_query($db,"UPDATE proveedores SET nombre='$nombre', fecha_modificacion=CURDATE(), usuario_modificacion='$user',direccion='$direccion',telefono='$telefono'
-            ,email='$email' WHERE id_proveedor='$id' ") OR
+            mysqli_query($db,"UPDATE proveedores SET nombre_prov='$nombre', fecha_modificacion=CURDATE(), usuario_modificacion='$user',direccion='$direccion',telefono='$telefono'
+            ,email_prov='$email' WHERE id_proveedor='$id' ") OR
             die (mysqli_error($db));
             $_SESSION['status'] = "Se actualizo el proveedor";
             header("location: pre_consultar_proveedores.php");

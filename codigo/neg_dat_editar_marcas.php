@@ -14,7 +14,7 @@ class Marca{
             $contador+=1;
         }
         if($contador!="0"){
-            mysqli_query($db,"UPDATE marcas SET nombre='$nombre', fecha_modificacion=CURDATE(), usuario_modificacion='$user' WHERE id_marca='$id' ") OR
+            mysqli_query($db,"UPDATE marcas SET nombre_marca='$nombre', fecha_modificacion=CURDATE(), usuario_modificacion='$user' WHERE id_marca='$id' ") OR
             die (mysqli_error($db));
             $_SESSION['status'] = "Se actualizo la marca";
             header("location: pre_consultar_marcas.php");

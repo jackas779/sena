@@ -3,7 +3,7 @@ include("conexion.php");
 if(isset($_POST)){
     if($_POST['actt']=='infocate'){
         $id=$_POST['cate'];
-        $consulta = mysqli_query($db,"SELECT codigo_categoria,descripcion FROM categorias
+        $consulta = mysqli_query($db,"SELECT codigo_categoria,cat_descripcion FROM categorias
         WHERE id_categorias = '$id' AND fk_id_estado='1'");
         mysqli_close($db);
         $resultado=mysqli_num_rows($consulta);

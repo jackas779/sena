@@ -3,7 +3,7 @@ include("conexion.php");
 if(isset($_POST)){
     if($_POST['actt']=='infocate'){
         $id=$_POST['prov'];
-        $consulta = mysqli_query($db,"SELECT id_proveedor,nombre,direccion,telefono,email FROM proveedores
+        $consulta = mysqli_query($db,"SELECT id_proveedor,nombre_prov,direccion,telefono,email FROM proveedores
         WHERE id_proveedor = '$id' AND fk_id_estado='1'");
         mysqli_close($db);
         $resultado=mysqli_num_rows($consulta);

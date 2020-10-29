@@ -56,7 +56,7 @@ include("seguridad_admin.php")
     }
     while($fila=$resultado->fetch_assoc()){
         $bcodigo=stripslashes($fila['codigo_categoria']);
-        $bdescripcion=stripslashes($fila['descripcion']);
+        $bdescripcion=stripslashes($fila['cat_descripcion']);
         $bfecha_creacion=stripslashes($fila['fecha_creacion']);
         $bfecha_modificacion=stripslashes($fila['fecha_modificacion']);
         $busuario_modificacion=stripslashes($fila['usuario_modificacion']);
@@ -188,7 +188,7 @@ $('.act_btn').click(function(e){
 
                 $('#cod_categoria').val(info.codigo_categoria);
                 $('.categorias').val(info.codigo_categoria);
-                $('#nombre_cate').val(info.descripcion);
+                $('#nombre_cate').val(info.cat_descripcion);
                 $('#editar_cat').modal('show');
 
             }

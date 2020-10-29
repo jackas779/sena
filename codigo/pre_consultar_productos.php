@@ -41,62 +41,57 @@ include("seguridad_admin.php")
         <td>Codigo</td>
         <td>Nombre</td>
         <td>Estado</td>
-        <td>Fecha de Creaci&oacute;n</td>
         <td>Descripci&oacute;n</td>
+        <td>Fecha de Creaci&oacute;n</td>
         <td>Usuario Creador</td>
         <td>categoria</td>
         <td colspan="3">Acciones</td>
-        <td><button type="submit"><i class="fas fa-plus"></i><a href="pre_crear_categorias.php">Crear Categorias</a></button></td>
+        <td><button type="submit"><i class="fas fa-plus"></i><a href="pre_crear_productos.php">Crear Categorias</a></button></td>
     </tr>
     <?php
     include("conexion.php");
-    $consulta="SELECT * FROM productos";
+    $consulta="SELECT P.codigo,P.nombre,P.descripcion,P.fecha_creacion,P.usuario_creacion,P.fk_id_categoria,
+                      P.fk_id_estado,P.id_product,
+                      C.id_categorias,C.cat_descripcion,
+                      E.id_estado,E.nombre_estado
+                      FROM productos P 
+                      INNER JOIN categorias C
+                      ON P.fk_id_categoria = C.id_categorias
+                      INNER JOIN estados E 
+                      ON P.fk_id_estado = id_estado";
     if(!$resultado=$db->query($consulta)){
     die('hay un error con la consulta o los datos no existen vuelve a comprobar !!![' . $db->error . ']');
     }
     while($fila=$resultado->fetch_assoc()){
         $bcodigo=stripslashes($fila['codigo']);
-        $bdescripcion=stripslashes($fila['nombre']);
-        $bfecha_creacion=stripslashes($fila['descripcion']);
-        $bfecha_modificacion=stripslashes($fila['fecha_creacion']);
-        $busuario_modificacion=stripslashes($fila['usuario_creacion']);
-        $busuario_creacion=stripslashes($fila['fk_id_categoria']);
-        $bfk_id_estado=stripslashes($fila['fk_id_estado']);
-        $bid_categorias=stripslashes($fila['id_product']);
-
-        if($bfk_id_estado=="1"){
-            $bfk_id_estado='activo';
-        }
-        if($bfk_id_estado=="2"){
-            $bfk_id_estado='inactivo';
-        }
-        if($bfecha_modificacion==""){
-            $bfecha_modificacion="---------------------";
-        }
-        if($busuario_modificacion==""){
-            $busuario_modificacion="--------------------";
-        }
+        $bnombre=stripslashes($fila['nombre']);
+        $bdescripcion=stripslashes($fila['descripcion']);
+        $bfecha_creacion=stripslashes($fila['fecha_creacion']);
+        $busuario_creacion=stripslashes($fila['usuario_creacion']);
+        $bfk_id_categoria=stripslashes($fila['cat_descripcion']);
+        $bfk_id_estado=stripslashes($fila['nombre_estado']);
+        $bid_product=stripslashes($fila['id_product']);
         echo "<tr>";
         echo "<td class='id_cat'>$bcodigo</td>";
-        echo "<td>$bdescripcion</td>";
+        echo "<td>$bnombre</td>";
         echo "<td>$bfk_id_estado</td>";
+        echo "<td>$bdescripcion</td>";
         echo "<td>$bfecha_creacion</td>";
-        echo "<td>$bfecha_modificacion</td>";
         echo "<td>$busuario_creacion</td>";
-        echo "<td>$busuario_modificacion</td>";
+        echo "<td>$bfk_id_categoria</td>";
         ?>
         <td>
-            <a href="#" class="badge badge-info act_btn" cat="<?php echo $bid_categorias; ?>"><i class="fas fa-feather"></i></a>
+            <a href="#" class="badge badge-info act_btn" cat="<?php echo $bid_product; ?>"><i class="fas fa-feather"></i></a>
         </td>
         <td>
             <a href="#" class="badge badge-danger delete_btn"><i class="fas fa-trash-alt"></i></a>
         </td>
         <?php
         if($bfk_id_estado=="activo"){
-            echo "<td><a href='neg_cambiar_estado_cat.php?id=$bid_categorias'><i class='fas fa-check text-success'></i></a></td>";   
+            echo "<td><a href='neg_cambiar_estado_cat.php?id=$bid_product'><i class='fas fa-check text-success'></i></a></td>";   
         }
         if($bfk_id_estado=="inactivo"){
-            echo "<td><a href='neg_cambiar_estado_cat.php?id=$bid_categorias'><i class='fas fa-times-circle text-danger'></i></a></td>";   
+            echo "<td><a href='neg_cambiar_estado_cat.php?id=$bid_product'><i class='fas fa-times-circle text-danger'></i></a></td>";   
         }
        
         echo "</tr>";
