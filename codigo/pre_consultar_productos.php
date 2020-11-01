@@ -8,6 +8,7 @@ include("seguridad_admin.php")
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="../js/funciones.js"></script>
+    <link rel="shortcut icon"  href="https://genfavicon.com/tmp/icon_a561d8beb6b4c18e363a5b078ba0f316.ico" type="image/x-icon">
     
 </head>
 <body>
@@ -46,7 +47,7 @@ include("seguridad_admin.php")
         <td>Usuario Creador</td>
         <td>categoria</td>
         <td colspan="3">Acciones</td>
-        <td><button type="submit"><i class="fas fa-plus"></i><a href="pre_crear_productos.php">Crear Categorias</a></button></td>
+        <td><button type="submit"><i class="fas fa-plus"></i><a href="pre_crear_productos.php">Crear Productos</a></button></td>
     </tr>
     <?php
     include("conexion.php");
@@ -58,7 +59,7 @@ include("seguridad_admin.php")
                       INNER JOIN categorias C
                       ON P.fk_id_categoria = C.id_categorias
                       INNER JOIN estados E 
-                      ON P.fk_id_estado = id_estado";
+                      ON P.fk_id_estado = E.id_estado";
     if(!$resultado=$db->query($consulta)){
     die('hay un error con la consulta o los datos no existen vuelve a comprobar !!![' . $db->error . ']');
     }
@@ -72,7 +73,7 @@ include("seguridad_admin.php")
         $bfk_id_estado=stripslashes($fila['nombre_estado']);
         $bid_product=stripslashes($fila['id_product']);
         echo "<tr>";
-        echo "<td class='id_cat'>$bcodigo</td>";
+        echo "<td class='id_prod'>$bcodigo</td>";
         echo "<td>$bnombre</td>";
         echo "<td>$bfk_id_estado</td>";
         echo "<td>$bdescripcion</td>";
@@ -81,17 +82,20 @@ include("seguridad_admin.php")
         echo "<td>$bfk_id_categoria</td>";
         ?>
         <td>
-            <a href="#" class="badge badge-info act_btn" cat="<?php echo $bid_product; ?>"><i class="fas fa-feather"></i></a>
+            <a href="#" class="badge badge-info act_btn" prod="<?php echo $bid_product; ?>"><i class="fas fa-feather"></i></a>
         </td>
         <td>
             <a href="#" class="badge badge-danger delete_btn"><i class="fas fa-trash-alt"></i></a>
         </td>
+        <td>
+        <a href="#" class="badge badge-warning info_btn" prod="<?php echo $bid_product;?>">Detalles</a>
+        </td>
         <?php
         if($bfk_id_estado=="activo"){
-            echo "<td><a href='neg_cambiar_estado_cat.php?id=$bid_product'><i class='fas fa-check text-success'></i></a></td>";   
+            echo "<td><a href='neg_cambiar_estado_prod.php?id=$bid_product'><i class='fas fa-check text-success'></i></a></td>";   
         }
         if($bfk_id_estado=="inactivo"){
-            echo "<td><a href='neg_cambiar_estado_cat.php?id=$bid_product'><i class='fas fa-times-circle text-danger'></i></a></td>";   
+            echo "<td><a href='neg_cambiar_estado_prod.php?id=$bid_product'><i class='fas fa-times-circle text-danger'></i></a></td>";   
         }
        
         echo "</tr>";
@@ -99,17 +103,17 @@ include("seguridad_admin.php")
 
     ?>
  </table>
-    <!-- Modal eliminacion de proveedores -->
-<div class="modal fade" id="eliminar_proveedor" tabindex="-1" aria-labelledby="eliminar_proveedorLabel" aria-hidden="true">
+   <!-- Modal eliminacion de proveedores -->
+<div class="modal fade" id="eliminar_producto" tabindex="-1" aria-labelledby="eliminar_productoLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="eliminar_proveedorLabel">Eliminar Categoria</h5>
+        <h5 class="modal-title" id="eliminar_productoLabel">Eliminar Categoria</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-        <form action="neg_dat_eliminar_proveedor.php" method="POST">
+        <form action="neg_dat_eliminar_producto.php" method="POST">
             <div class="modal-body">
                 <input type="hidden" name="id" id="cod_id">
                 <h4>¿Estas Seguro de eliminar este proveedor ?</h4>
@@ -124,13 +128,13 @@ include("seguridad_admin.php")
 </div>
 <!-- Modal eliminacion de proveedores -->
 
-<!-- Modal editar proveedores -->
+<!-- Modal editar productos -->
 
-<div class="modal fade" id="editar_prov" tabindex="-1" role="dialog" aria-labelledby="editar_provLabel" aria-hidden="true">
+<div class="modal fade" id="editar_prod" tabindex="-1" role="dialog" aria-labelledby="editar_prodLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editar_provLabel">Editar Proveedor</h5>
+        <h5 class="modal-title" id="editar_prodLabel">Editar Productos</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -140,26 +144,47 @@ include("seguridad_admin.php")
           
       <div class="form-group">
             <label for="recipient-name" class="col-form-label">Id producto:</label>
-            <input type="hidden" name="id_prov"  id="cod_proveedor">
-            <input type="text" class="form-control proveedor" id="cod" disabled>
+            <input type="hidden" name="id_prod"  id="id_producto">
+            <input type="text" class="form-control producto" id="cod" disabled>
           </div>
           
       <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Codigo:</label>
+            <input type="text" class="form-control" id="codigo_prod" name="codigo">
+          </div>
+      <div class="form-group">
             <label for="recipient-name" class="col-form-label">Nombre:</label>
-            <input type="text" class="form-control" id="nombre_prov" name="nombre">
+            <input type="text" class="form-control" id="nombre_prod" name="nombre">
           </div>
       <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Direcci&oacuten:</label>
-            <input type="text" class="form-control" id="direccion_prov" name="direccion">
+            <label for="recipient-name" class="col-form-label">Descripci&oacute;n:</label>
+            <input type="text" class="form-control" id="descripcion_prod" name="descripcion">
           </div>
       <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Telefono:</label>
-            <input type="text" class="form-control" id="telefono_prov" name="telefono">
+            <label for="recipient-name" class="col-form-label">Categoria:</label>
+            <select  name="categorias" class="form-control">
+              <option label="" id="categoria_prod"></option>
+              <?php 
+              $sql = "SELECT * FROM categorias";
+              if(!$resultado=$db->query($sql)){
+                die ('hay un error ['.$db->error.']');
+              }
+              while($row=$resultado->fetch_assoc()){
+                $bid_categorias = stripcslashes($row['id_categorias']);
+                $bcat_descripcion = stripcslashes($row['cat_descripcion']);
+                echo "<option value='$bid_categorias'>$bcat_descripcion</option>";
+              }
+              ?>
+            </select>
           </div>
       <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Correo Electronico:</label>
-            <input type="text" class="form-control" id="email_prov" name="email">
+            <label for="recipient-name" class="col-form-label">Proveedor:</label>
+            <input type="text" class="form-control" id="proveedor_prod" name="proveedores">
           </div>
+     <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Marca:</label>
+            <input type="text" class="form-control" id="marca_prod" name="marcas">
+          </div>    
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -169,7 +194,7 @@ include("seguridad_admin.php")
     </div>
   </div>
 </div>
-<!-- Modal editar proveedores -->
+<!-- Modal editar productos -->
 <!-- Modal detalles proveedores-->
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -184,16 +209,24 @@ include("seguridad_admin.php")
           <form action="">
       <div class="form-group">
             <label for="recipient-name" class="col-form-label">Id producto:</label>
-            <input type="hidden" name="id_prov"  id="cod_proveedor">
-            <input type="text" class="form-control proveedor" id="cod" disabled>
+            <input type="hidden" name="id_prod"  id="id_prod_det">
+            <input type="text" class="form-control proveedor" id="cod_det" disabled>
+            <label for="recipient-name" class="col-form-label">Codigo:</label>
+            <input type="text" class="form-control" id="codigo" >
+            <label for="recipient-name" class="col-form-label">Codigo de barra:</label>
+            <input type="text" class="form-control" id="codigo_barras" >
             <label for="recipient-name" class="col-form-label">Nombre:</label>
             <input type="text" class="form-control" id="nombre_det" >
-            <label for="recipient-name" class="col-form-label">Direcci&oacute;n:</label>
-            <input type="text" class="form-control" id="direccion_det" >
-            <label for="recipient-name" class="col-form-label">Telefono:</label>
-            <input type="text" class="form-control" id="telefono_det" >
-            <label for="recipient-name" class="col-form-label">Email:</label>
-            <input type="text" class="form-control" id="email_det" >
+            <label for="recipient-name" class="col-form-label">Descripci&oacute;n:</label>
+            <input type="text" class="form-control" id="descripcion_det" >
+            <label for="recipient-name" class="col-form-label">Existencia:</label>
+            <input type="text" class="form-control" id="existencia_det" >
+            <label for="recipient-name" class="col-form-label">Categoria:</label>
+            <input type="text" class="form-control" id="categoria_det" >
+            <label for="recipient-name" class="col-form-label">Marca:</label>
+            <input type="text" class="form-control" id="marca_det" >
+            <label for="recipient-name" class="col-form-label">Proveedor:</label>
+            <input type="text" class="form-control" id="proveedor_det" >
             <label for="recipient-name" class="col-form-label">Fecha de creacion:</label>
             <input type="text" class="form-control" id="fecha_cre_det" >
             <label for="recipient-name" class="col-form-label">Usuario creador:</label>
@@ -217,28 +250,30 @@ include("seguridad_admin.php")
 
    </div>
 <script>
-    $(document).ready(function(){
-
-//scrip editar proveedores
-$('.act_btn').click(function(e){
+  //scrip editar proveedores
+$(document).ready(function(){
+  $('.act_btn').click(function(e){
     e.preventDefault();
-    var proveedor = $(this).attr('prov');
+    var producto = $(this).attr('prod');
     var action = 'infocate';
     $.ajax({
         type: "POST",
-        url: "edit_prov_ajax.php",
-        data: {actt:action,prov:proveedor},
+        url: "edit_prod_ajax.php",
+        data: {actt:action,prov:producto},
         async:true,
         success: function (response) {
             if(response !='error'){
-                $('#editar_prov').modal('show');
+                $('#editar_prod').modal('show');
                 var info = JSON.parse(response);
-                $('#cod_proveedor').val(info.id_proveedor);
-                $('.proveedor').val(info.id_proveedor);
-                $('#nombre_prov').val(info.nombre);
-                $('#direccion_prov').val(info.direccion);
-                $('#telefono_prov').val(info.telefono);
-                $('#email_prov').val(info.email);              
+                $('#id_prod').val(info.id_product);
+                $('#cod').val(info.id_product);
+                $('#codigo_prod').val(info.codigo);
+                $('#nombre_prod').val(info.nombre);
+                $('#descripcion_prod').val(info.descripcion);
+                $('#categoria_prod').val(info.cat_descripcion);
+                $('#proveedor_prod').val(info.nombre_marca);
+                $('#marca_prod').val(info.nombre_prov);  
+                $('label').val(info.nombre);            
 
             }
             if(response =='error'){
@@ -255,37 +290,37 @@ $('.act_btn').click(function(e){
 $('.delete_btn').click(function (e) { 
     e.preventDefault();
 
-    var id_prov = $(this).closest('tr').find('.id_prov').text();
-    //console.log(id_cat);
-    $('#cod_id').val(id_prov);
-    $('#eliminar_proveedor').modal('show');
+    var id_prod = $(this).closest('tr').find('.id_prod').text();
+    $('#cod_id').val(id_prod);
+    $('#eliminar_producto').modal('show');
 });
 // Funcion del modal de detalles
 $('.info_btn').click(function(e){
     e.preventDefault();
-    var proveedor = $(this).attr('prov');
+    var producto = $(this).attr('prod');
     var action = 'infocate';
     $.ajax({
         type: "POST",
-        url: "det_prov_ajax.php",
-        data: {actt:action,prov:proveedor},
+        url: "det_prod_ajax.php",
+        data: {actt:action,prov:producto},
         async:true,
         success: function (response) {
             if(response !='error'){
                 var info = JSON.parse(response);
-                $('#cod_proveedor').val(info.id_proveedor);
-                $('.proveedor').val(info.id_proveedor);
+                $('#id_prod_det').val(info.id_product);
+                $('#cod_det').val(info.id_product);
+                $('#codigo').val(info.codigo);
+                $('#codigo_barras').val();
                 $('#nombre_det').val(info.nombre);
-                $('#direccion_det').val(info.direccion);
-                $('#telefono_det').val(info.telefono);
+                $('#descripcion_det').val(info.descripcion);
+                $('#existencia_det').val(info.existencia);
+                $('#categoria_det').val(info.cat_descripcion); 
+                $('#marca_det').val(info.nombre_marca);
+                $('#proveedor_det').val(info.nombre_prov);
                 $('#fecha_cre_det').val(info.fecha_creacion);
-                $('#fecha_mod_det').val(info.fecha_modificacion);
-                $('#usuario_cre_det').val(info.usuario_creacion);
-                $('#usuario_mod_det').val(info.usuario_modificacion);
-                $('#email_det').val(info.email);
-                console.log(info);
-
-               
+                $('#usuario_cre_det').val(info.usuario_creacion);       
+                $('#fecha_mod_det').val(info.fecha_modificacion); 
+                $('#usuario_mod_det').val(info.usuario_modificacion);             
 
             }
             if(response =='error'){
