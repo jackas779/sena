@@ -19,8 +19,9 @@ class Producto{
         while($resultado->fetch_assoc()){
             $constador+="1";
         }
-        if($nombre || $descripcion || $codigo || $categoria || $proveedor || $marca == ""){
-            header("location: sin_nombre.php");
+        if($nombre == "" || $descripcion == "" || $codigo == "" || $categoria == "" || $proveedor == ""|| $marca == ""){
+            header("location: pre_crear_productos.php");
+            $_SESSION['status']="Error de datos";
             exit ();
         }
         if($contador=="0"){

@@ -41,7 +41,8 @@ class registro{
         if($password==$rpassword){
             if($contador=="0"){
                 mysqli_query($db,"INSERT INTO usuarios (id_usuario,username,nombres,apellidos,email,password,fk_id_estado) VALUES (NULL,'$usuario','$nombres','$apellidos','$email','$password','$id_estado')") or die (mysqli_error($db));
-                echo "se creo el usuario";
+                
+                header("location: pre_login.php");
             }  
         }
         if($password!=$rpassword){

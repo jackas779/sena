@@ -12,7 +12,7 @@
              $contador+=1;
          }
          if($contador=="0"){
-             mysqli_query($db,"INSERT INTO categorias (id_categorias,codigo_categoria,fecha_creacion,descripcion,usuario_creacion,fk_id_estado) VALUES (NULL,'$codigo',CURDATE(),'$nombre','$user','1')") or die (mysqli_error($db));
+             mysqli_query($db,"INSERT INTO categorias (id_categorias,codigo_categoria,fecha_creacion,cat_descripcion,usuario_creacion,fk_id_estado) VALUES (NULL,'$codigo',CURDATE(),'$nombre','$user','1')") or die (mysqli_error($db));
              header("location: pre_consultar_categorias.php?yes=y");
          }
          if($contador!="0"){

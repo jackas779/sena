@@ -1,26 +1,78 @@
 <?php
 include("seguridad_admin.php")
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="../js/funciones.js"></script>
-    
+<head> 
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- icono del title-->
+  <link rel="shortcut icon"  href="https://genfavicon.com/tmp/icon_a561d8beb6b4c18e363a5b078ba0f316.ico" type="image/x-icon">
+
+  <title>Categorias</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom fonts for this template -->
+<link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<link href="../css/resume.min.css" rel="stylesheet">
+<script src="../js/funciones.js"></script>
 </head>
 <body>
-   <div id="banner">
-    <?php
-    include("banner_admin.php");
-    ?>
-   </div>
-   <div  id="col1">
 
-   </div>
-   <div id="body" align="center">
-   <?php 
+    <!-- llamado de la columna -->
+    <?php
+
+      include("../menu_admin/columna.php");
+
+
+
+    ?>
+
+    <!-- llamado del banner -->
+
+<?php
+
+include("../menu_admin/banner.php");
+
+
+
+?>
+
+</div>
+
+  <!-- Inicio del cuerpo con su tarjeta-->
+
+
+
+<div class="card">
+
+</div>
+
+    <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                    <h3 class="m-0 font-weight-bold" style="color: black;">Categorias Disponibles</h3>
+                    <hr>
+
+                    <br>
+
+                    <?php 
                 if(isset($_SESSION['status'])!='')
                 {
                       ?>
@@ -36,18 +88,22 @@ include("seguridad_admin.php")
                         unset($_SESSION['status']);
                     }
     ?>
-    <table>
-    <tr>
-        <td>Codigo</td>
-        <td>Nombre</td>
-        <td>Estado</td>
-        <td>Fecha de Creaci&oacute;n</td>
-        <td>Fecha de Modificaci&oacuten</td>
-        <td>Usuario Creador</td>
-        <td>Usuario Modificador</td>
-        <td colspan="3">Acciones</td>
-        <td><button type="submit"><i class="fas fa-plus"></i><a href="pre_crear_categorias.php">Crear Categorias</a></button></td>
-    </tr>
+    <table class="table table-responsive-xl table-bordered  table-ligth table-hover " >
+
+                  
+<thead style="background-color: black;" class="text-light" >
+
+    <tr align="center" >
+        <th>Codigo</th>
+        <th>Nombre</th>
+        <th>Estado</th>
+        <th>Fecha de Creaci&oacute;n</th>
+        <th>Fecha de Modificaci&oacute;n</th>
+        <th>Usuario Creador</th>
+        <th>Usuario Modificador</th>
+        <th colspan="3">Acciones</th>
+    </tr> 
+  </thead>
     <?php
     include("conexion.php");
     $consulta="SELECT * FROM categorias";
@@ -76,6 +132,7 @@ include("seguridad_admin.php")
         if($busuario_modificacion==""){
             $busuario_modificacion="--------------------";
         }
+        echo "<tbody>";
         echo "<tr>";
         echo "<td class='id_cat'>$bcodigo</td>";
         echo "<td>$bdescripcion</td>";
@@ -100,10 +157,16 @@ include("seguridad_admin.php")
         }
        
         echo "</tr>";
+        echo "</tbody>";
     }
 
     ?>
  </table>
+ <div align="center">
+ <button type="submit" class="btn btn-outline-success btn-sm"><i class="fas fa-plus"></i><a href="pre_crear_categorias.php" style="   text-decoration: none;">
+   <span class="text-dark"> <b> Crear Categorias</b></span></a></button>
+ </div>
+
    <!-- Modal eliminacion de categorias -->
 <div class="modal fade" id="eliminar_categoria" tabindex="-1" aria-labelledby="eliminar_categoriaLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -135,7 +198,7 @@ include("seguridad_admin.php")
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editar_catLabel">Modal title</h5>
+        <h5 class="modal-title" id="editar_catLabel">Editar Categoria</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -215,5 +278,40 @@ $('.delete_btn').click(function (e) {
 </script>
 
 
+
+ 
+
+ 
+
+  
+
+
+
+
+
+
+  
+</div>
+      </div>
+  <!-- Fin del cuerpo con su tarjeta-->
+
+
+<div class="d-flex">
+  footer
+</div>
+
+<!-- Bootstrap core JavaScript -->
+
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- Plugin JavaScript -->
+
+
+
+<!-- Custom scripts for this template -->
+<script src="../js/resume.min.js"></script>
+
 </body>
+
 </html>

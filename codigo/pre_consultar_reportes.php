@@ -1,26 +1,82 @@
 <?php
 include("seguridad_admin.php")
 ?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="../js/funciones.js"></script>
-    
+<head> 
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- icono del title-->
+  <link rel="shortcut icon"  href="https://genfavicon.com/tmp/icon_a561d8beb6b4c18e363a5b078ba0f316.ico" type="image/x-icon">
+
+  <title>Reportes</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom fonts for this template -->
+<link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<link href="../css/resume.min.css" rel="stylesheet">
+<script src="../js/funciones.js"></script>
 </head>
 <body>
-   <div id="banner">
-    <?php
-    include("banner_admin.php");
-    ?>
-   </div>
-   <div  id="col1">
 
-   </div>
-   <div id="body" align="center">
-   <?php 
+    <!-- llamado de la columna -->
+    <?php
+
+      include("../menu_admin/columna.php");
+
+
+
+    ?>
+
+    <!-- llamado del banner -->
+
+<?php
+
+include("../menu_admin/banner.php");
+
+
+
+?>
+
+</div>
+
+  <!-- Inicio del cuerpo con su tarjeta-->
+
+
+
+<div class="card">
+
+</div>
+
+    <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                    <h3 class="m-0 font-weight-bold" style="color: black;">Lista de reportes</h3>
+                    <hr>
+
+                    <br>
+
+                    <?php 
                 if(isset($_SESSION['status'])!='')
                 {
                       ?>
@@ -36,17 +92,22 @@ include("seguridad_admin.php")
                         unset($_SESSION['status']);
                     }
     ?>
-    <table>
-    <tr>
-        <td colspan="2">Id reporte</td>
-        <td>Codigo Producto</td>
-        <td>Nombre Producto</td>
-        <td>Cantidad Reportada</td>
-        <td>Observaciones</td>
-        <td>Fecha de Creaci&oacute;n</td>
-        <td>Usuario</td>
-        <td>Estado</td>
+    <table class="table table-responsive-xl table-bordered  table-ligth table-hover " >
+
+                  
+<thead style="background-color: black;" class="text-light" >
+
+    <tr align="center" >
+        <th colspan="2">Id reporte</th>
+        <th>Codigo Producto</th>
+        <th>Nombre Producto</th>
+        <th>Cantidad Reportada</th>
+        <th>Observaciones</th>
+        <th>Fecha de Creaci&oacute;n</th>
+        <th>Usuario</th>
+        <th>Estado</th>
     </tr>
+</thead>
     <?php
     include("conexion.php");
     $consulta="SELECT * FROM ingresos_det a INNER JOIN estados b ON a.fk_id_estado=b.id_estado";
@@ -64,7 +125,7 @@ include("seguridad_admin.php")
         $bfk_id_estado=stripslashes($fila['fk_id_estado']);
         $bnombre_estado=stripslashes($fila['nombre_estado']);
 
-
+        echo "<tbody align='center'>";
         echo "<tr>";
         echo "<td>#</td>";
         echo "<td class='id_prov'>$bid_ing_det</td>";
@@ -75,7 +136,8 @@ include("seguridad_admin.php")
         echo "<td>$bfecha_creacion</td>";
         echo "<td>$busuario_creacion</td>";
         echo "<td>$bnombre_estado</td>";     
-        echo "</tr>";
+        echo "</tr>"; 
+        echo "</tbody>";
     }
 
     ?>
@@ -281,5 +343,39 @@ $('.info_btn').click(function(e){
 </script>
 
 
+ 
+
+ 
+
+  
+
+
+
+
+
+
+  
+</div>
+      </div>
+  <!-- Fin del cuerpo con su tarjeta-->
+
+
+<div class="d-flex">
+
+</div>
+
+<!-- Bootstrap core JavaScript -->
+
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- Plugin JavaScript -->
+
+
+
+<!-- Custom scripts for this template -->
+<script src="../js/resume.min.js"></script>
+
 </body>
+
 </html>
