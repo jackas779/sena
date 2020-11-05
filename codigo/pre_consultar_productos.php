@@ -47,7 +47,7 @@ include("seguridad_admin.php")
         <td>Usuario Creador</td>
         <td>Categoria</td>
         <td>Estado</td>
-        <td colspan="3">Acciones</td>
+        <td colspan="5">Acciones</td>
         <td><button type="submit"><i class="fas fa-plus"></i><a href="pre_crear_productos.php">Crear Productos</a></button></td>
     </tr>
     <?php
@@ -93,6 +93,12 @@ include("seguridad_admin.php")
         </td>
         <td>
         <a href="#" class="badge badge-warning info_btn" prod="<?php echo $bid_product;?>">Detalles</a>
+        </td>
+        <td>
+        <a href="#" class="badge badge-success add_btn" prod="<?php echo $bid_product;?>">Agregar</a>
+        </td>
+        <td>
+        <a href="#" class="badge badge-danger obs_btn" prod="<?php echo $bid_product;?>">Obsoleto</a>
         </td>
         <?php
         if($bfk_id_estado=="activo"){
@@ -275,6 +281,71 @@ include("seguridad_admin.php")
   </div>
 </div>
 <!-- Modal detalles proveedores-->
+
+<!-- Modal agregar existencias -->
+<div class="modal fade" id="existencias_modal" tabindex="-1" aria-labelledby="existencias_modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="existencias_modalLabel">Agregar Existencias</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="neg_dat_agregar_existencias.php" method="post">
+      <div class="modal-body">
+            <label for="recipient-name" class="col-form-label">Producto:</label>
+            <input type="hidden" class="form-control" id="id" name="product" >
+            <input type="text" class="form-control" id="id_product"  disabled>
+            <label for="recipient-name" class="col-form-label">Existencia Actual:</label>
+            <input type="number" class="form-control" id="exis" disabled >
+            <label for="recipient-name" class="col-form-label">Agregar existencias:</label>
+            <input type="number" class="form-control" value="0" name="existencia" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--fin del modal -->
+<!-- Modal agregar existencias -->
+<div class="modal fade" id="obsoletos_modal" tabindex="-1" aria-labelledby="obsoletos_modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="obsoletos_modalLabel">Productos Obsoletos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="neg_dat_obsoletos.php" method="post">
+      <div class="modal-body">
+            <label for="recipient-name" class="col-form-label">Producto:</label>
+            <input type="hidden" class="form-control" id="id_prod" name="product" >
+            <input type="hidden" class="form-control" id="cod_pr" name="codigo" >
+            <input type="hidden" class="form-control" id="nom_pr" name="nombre" >
+            <input type="text" class="form-control" id="id_pro"  disabled>
+            <label for="recipient-name" class="col-form-label">Existencia Actual:</label>
+            <input type="text" class="form-control" id="exist" disabled >
+            <label for="recipient-name" class="col-form-label">Agregar productos obsoletos:</label>
+            <input type="number" class="form-control" value="0" name="obsoletos" >
+            <div class="form-group">
+            <label for="message-text" class="col-form-label">Observaciones:</label>
+            <textarea class="form-control" id="message-text" name="mensajes"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Aceptar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--fin del modal -->
 </div>
    <div id="footer">
 

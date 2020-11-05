@@ -84,5 +84,61 @@ $('.info_btn').click(function(e){
     $('#exampleModalLong').modal('show');
     
 });
+//modal agregar existencias
+$('.add_btn').click(function (e) { 
+    e.preventDefault();
+    var producto = $(this).attr('prod');
+    var action = 'infocate';
+    $.ajax({
+        type: "POST",
+        url: "det_prod_ajax.php",
+        data: {actt:action,prov:producto},
+        async:true,
+        success: function (response) {
+            if(response !='error'){
+                var info = JSON.parse(response);
+                $('#id_product').val(info.nombre);
+                $('#id').val(info.id_product);
+                $('#exis').val(info.existencia);
+            }
+            if(response =='error'){
+                alert("categoria inactiva");
+            }
+        },
+        error:function(error){
+            console.log(error);
+        },
+    });
+    $('#existencias_modal').modal('show');
+});
+//modal obsoletos
+$('.obs_btn').click(function (e) { 
+    e.preventDefault();
+    var producto = $(this).attr('prod');
+    var action = 'infocate';
+    $.ajax({
+        type: "POST",
+        url: "det_prod_ajax.php",
+        data: {actt:action,prov:producto},
+        async:true,
+        success: function (response) {
+            if(response !='error'){
+                var info = JSON.parse(response);
+                $('#id_pro').val(info.nombre);
+                $('#id_prod').val(info.id_product);
+                $('#exist').val(info.existencia);
+                $('#cod_pr').val(info.codigo);
+                $('#nom_pr').val(info.nombre);
+            }
+            if(response =='error'){
+                alert("categoria inactiva");
+            }
+        },
+        error:function(error){
+            console.log(error);
+        },
+    });
+    $('#obsoletos_modal').modal('show');
+});
 });
 </script>
