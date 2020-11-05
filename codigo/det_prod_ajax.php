@@ -1,5 +1,6 @@
 <?php
 include("conexion.php");
+//sion_start();
 if(isset($_POST)){
     if($_POST['actt']=='infocate'){
         $id=$_POST['prov'];

@@ -18,10 +18,10 @@ include("seguridad_admin.php")
     ?>
    </div>
    <div  id="col1">
-
+    
    </div>
    <div id="body" align="center">
-   <?php 
+   <?php
                 if(isset($_SESSION['status'])!='')
                 {
                       ?>
@@ -41,18 +41,19 @@ include("seguridad_admin.php")
     <tr>
         <td>Codigo</td>
         <td>Nombre</td>
-        <td>Estado</td>
         <td>Descripci&oacute;n</td>
+        <td>Existencia</td>
         <td>Fecha de Creaci&oacute;n</td>
         <td>Usuario Creador</td>
-        <td>categoria</td>
+        <td>Categoria</td>
+        <td>Estado</td>
         <td colspan="3">Acciones</td>
         <td><button type="submit"><i class="fas fa-plus"></i><a href="pre_crear_productos.php">Crear Productos</a></button></td>
     </tr>
     <?php
     include("conexion.php");
     $consulta="SELECT P.codigo,P.nombre,P.descripcion,P.fecha_creacion,P.usuario_creacion,P.fk_id_categoria,
-                      P.fk_id_estado,P.id_product,
+                      P.fk_id_estado,P.id_product,P.existencia,
                       C.id_categorias,C.cat_descripcion,
                       E.id_estado,E.nombre_estado
                       FROM productos P 
@@ -72,14 +73,17 @@ include("seguridad_admin.php")
         $bfk_id_categoria=stripslashes($fila['cat_descripcion']);
         $bfk_id_estado=stripslashes($fila['nombre_estado']);
         $bid_product=stripslashes($fila['id_product']);
+        $bexistencia=stripslashes($fila['existencia']);
         echo "<tr>";
         echo "<td class='id_prod'>$bcodigo</td>";
         echo "<td>$bnombre</td>";
-        echo "<td>$bfk_id_estado</td>";
         echo "<td>$bdescripcion</td>";
+        echo "<td>$bexistencia</td>";
         echo "<td>$bfecha_creacion</td>";
         echo "<td>$busuario_creacion</td>";
         echo "<td>$bfk_id_categoria</td>";
+        echo "<td>$bfk_id_estado</td>";
+        $pesos="<p id='prueba'><p>";
         ?>
         <td>
             <a href="#" class="badge badge-info act_btn" prod="<?php echo $bid_product; ?>"><i class="fas fa-feather"></i></a>
@@ -139,12 +143,11 @@ include("seguridad_admin.php")
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="neg_dat_editar_proveedores.php" method="post">
+      <form action="neg_dat_editar_productos.php" method="post">
       <div class="modal-body">   
-          
       <div class="form-group">
             <label for="recipient-name" class="col-form-label">Id producto:</label>
-            <input type="hidden" name="id_prod"  id="id_producto">
+            <input type="hidden" name="id"  id="id_producto">
             <input type="text" class="form-control producto" id="cod" disabled>
           </div>
           
@@ -162,8 +165,8 @@ include("seguridad_admin.php")
           </div>
       <div class="form-group">
             <label for="recipient-name" class="col-form-label">Categoria:</label>
-            <select  name="categorias" class="form-control">
-              <option label="" id="categoria_prod"></option>
+            <select  name="categorias" class="form-control" required>
+              <option  id="categoria_prod">Seleccione :</option>
               <?php 
               $sql = "SELECT * FROM categorias";
               if(!$resultado=$db->query($sql)){
@@ -179,11 +182,37 @@ include("seguridad_admin.php")
           </div>
       <div class="form-group">
             <label for="recipient-name" class="col-form-label">Proveedor:</label>
-            <input type="text" class="form-control" id="proveedor_prod" name="proveedores">
+            <select  class="form-control" name="proveedores" required>
+              <option  id="proveedor_prod">Seleccione :</option>
+              <?php 
+              $sql = "SELECT * FROM proveedores";
+              if(!$resultado=$db->query($sql)){
+                die ('hay un error ['.$db->error.']');
+              }
+              while($row=$resultado->fetch_assoc()){
+                $bid_proveedor = stripcslashes($row['id_proveedor']);
+                $bnombre_prov = stripcslashes($row['nombre_prov']);
+                echo "<option value='$bid_proveedor'>$bnombre_prov</option>";
+              }
+              ?>
+            </select>
           </div>
      <div class="form-group">
             <label for="recipient-name" class="col-form-label">Marca:</label>
-            <input type="text" class="form-control" id="marca_prod" name="marcas">
+            <select  class="form-control" name="marcas" required>
+              <option   id="marca_prod">Seleccione :</option>
+              <?php 
+              $sql = "SELECT * FROM marcas";
+              if(!$resultado=$db->query($sql)){
+                die ('hay un error ['.$db->error.']');
+              }
+              while($row=$resultado->fetch_assoc()){
+                $bid_marca = stripcslashes($row['id_marca']);
+                $bnombre_marca = stripcslashes($row['nombre_marca']);
+                echo "<option value='$bid_marca'>$bnombre_marca</option>";
+              }
+              ?>
+            </select>
           </div>    
       </div>
       <div class="modal-footer">
@@ -195,6 +224,7 @@ include("seguridad_admin.php")
   </div>
 </div>
 <!-- Modal editar productos -->
+
 <!-- Modal detalles proveedores-->
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -249,94 +279,9 @@ include("seguridad_admin.php")
    <div id="footer">
 
    </div>
-<script>
-  //scrip editar proveedores
-$(document).ready(function(){
-  $('.act_btn').click(function(e){
-    e.preventDefault();
-    var producto = $(this).attr('prod');
-    var action = 'infocate';
-    $.ajax({
-        type: "POST",
-        url: "edit_prod_ajax.php",
-        data: {actt:action,prov:producto},
-        async:true,
-        success: function (response) {
-            if(response !='error'){
-                $('#editar_prod').modal('show');
-                var info = JSON.parse(response);
-                $('#id_prod').val(info.id_product);
-                $('#cod').val(info.id_product);
-                $('#codigo_prod').val(info.codigo);
-                $('#nombre_prod').val(info.nombre);
-                $('#descripcion_prod').val(info.descripcion);
-                $('#categoria_prod').val(info.cat_descripcion);
-                $('#proveedor_prod').val(info.nombre_marca);
-                $('#marca_prod').val(info.nombre_prov);  
-                $('label').val(info.nombre);            
-
-            }
-            if(response =='error'){
-                alert("categoria inactiva");
-            }
-        },
-        error:function(error){
-            console.log(error);
-        },
-    });
-    
-});
-//modal confirmacion eliminar proveedores
-$('.delete_btn').click(function (e) { 
-    e.preventDefault();
-
-    var id_prod = $(this).closest('tr').find('.id_prod').text();
-    $('#cod_id').val(id_prod);
-    $('#eliminar_producto').modal('show');
-});
-// Funcion del modal de detalles
-$('.info_btn').click(function(e){
-    e.preventDefault();
-    var producto = $(this).attr('prod');
-    var action = 'infocate';
-    $.ajax({
-        type: "POST",
-        url: "det_prod_ajax.php",
-        data: {actt:action,prov:producto},
-        async:true,
-        success: function (response) {
-            if(response !='error'){
-                var info = JSON.parse(response);
-                $('#id_prod_det').val(info.id_product);
-                $('#cod_det').val(info.id_product);
-                $('#codigo').val(info.codigo);
-                $('#codigo_barras').val();
-                $('#nombre_det').val(info.nombre);
-                $('#descripcion_det').val(info.descripcion);
-                $('#existencia_det').val(info.existencia);
-                $('#categoria_det').val(info.cat_descripcion); 
-                $('#marca_det').val(info.nombre_marca);
-                $('#proveedor_det').val(info.nombre_prov);
-                $('#fecha_cre_det').val(info.fecha_creacion);
-                $('#usuario_cre_det').val(info.usuario_creacion);       
-                $('#fecha_mod_det').val(info.fecha_modificacion); 
-                $('#usuario_mod_det').val(info.usuario_modificacion);             
-
-            }
-            if(response =='error'){
-                alert("categoria inactiva");
-            }
-        },
-        error:function(error){
-            console.log(error);
-        },
-    });
-    $('#exampleModalLong').modal('show');
-    
-});
-});
-</script>
-
+<?php
+include("java_productos.php");
+?>
 
 </body>
 </html>
