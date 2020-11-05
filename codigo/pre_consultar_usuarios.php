@@ -12,6 +12,10 @@ include("seguridad_admin.php")
 </head>
 <body>
    <div id="banner">
+    <?php
+    include("banner_admin.php");
+    ?>
+   </div>
    <div  id="col1">
 
    </div>
@@ -119,7 +123,7 @@ include("seguridad_admin.php")
 <script>
     $(document).ready(function(){
 
-//modal actualizar categorias
+//modal actualizar usuarios
 $('.act_btn').click(function(e){
     e.preventDefault();
     var categoria = $(this).attr('cat');
@@ -149,7 +153,7 @@ $('.act_btn').click(function(e){
     });
     
 });
-//modal confirmacion eliminar categorias
+//modal confirmacion eliminar  usuarios
 $('.delete_btn').click(function (e) { 
     e.preventDefault();
 

@@ -334,7 +334,7 @@ include("seguridad_admin.php")
             <input type="number" class="form-control" value="0" name="obsoletos" >
             <div class="form-group">
             <label for="message-text" class="col-form-label">Observaciones:</label>
-            <textarea class="form-control" id="message-text" name="mensajes"></textarea>
+            <textarea class="form-control" id="message-text" name="mensajes" required></textarea>
           </div>
       </div>
       <div class="modal-footer">
