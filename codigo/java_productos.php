@@ -70,7 +70,8 @@ $('.info_btn').click(function(e){
                 $('#fecha_cre_det').val(info.fecha_creacion);
                 $('#usuario_cre_det').val(info.usuario_creacion);       
                 $('#fecha_mod_det').val(info.fecha_modificacion); 
-                $('#usuario_mod_det').val(info.usuario_modificacion);             
+                $('#usuario_mod_det').val(info.usuario_modificacion);     
+                $('#exampleModalLong').modal('show');        
 
             }
             if(response =='error'){
@@ -81,7 +82,7 @@ $('.info_btn').click(function(e){
             console.log(error);
         },
     });
-    $('#exampleModalLong').modal('show');
+
     
 });
 //modal agregar existencias

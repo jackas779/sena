@@ -42,11 +42,11 @@
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-6 d-none d-lg-block" ><img src="../imagen/gatoq.jpg" ></div><!--imagen-->
+          <div class="col-lg-6 d-none d-lg-block" ><img src="../imagen/gatoq.jpeg" ></div><!--imagen-->
           <div class="col-lg-6" >
             <div class="p-5">
               <div class="text-center" >
-                <h1 class="h4 text-light mb-3"><b>STRONG INVENTORIES</b></h1>
+                <h1 class="h4 text-dark mb-3"><b>STRONG INVENTORIES</b></h1>
             
               </div>
                 <div >
@@ -74,23 +74,23 @@
      
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="nombres" name="nombres" required placeholder="Nombres">
+                  <input type="text" minlength="3" class="form-control form-control-user" id="nombres" name="nombres" required placeholder="Nombres">
                 </div> 
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="apellidos" name="apellidos" required placeholder="Apellidos">
+                  <input type="text" minlength="3" class="form-control form-control-user" id="apellidos" name="apellidos" required placeholder="Apellidos">
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="usuario" name="usuario" required placeholder="Usuario">
+                  <input type="text" minlength="5" class="form-control form-control-user" id="usuario" name="usuario" required placeholder="Usuario">
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="email" name="email" required placeholder="Correo Electronico">
+                  <input type="email" class="form-control form-control-user" id="email" name="email" required placeholder="Correo Electronico">
                 </div>
    
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-user" id="password" name="password" required placeholder="Contrasena">
+                  <input type="password" minlength="5" class="form-control form-control-user" id="password" name="password" required placeholder="Contrasena">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-user" id="rpassword" name="rpassword" required placeholder="Repita Contrasena">
+                  <input type="password" minlength="3" class="form-control form-control-user" id="rpassword" name="rpassword" required placeholder="Repita Contrasena">
                 </div>
 
                 <input type="hidden" id="id_estado" name="id_estado" value="1">

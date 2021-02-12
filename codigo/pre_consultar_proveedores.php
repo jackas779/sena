@@ -359,7 +359,8 @@ $('.info_btn').click(function(e){
                 $('#fecha_mod_det').val(info.fecha_modificacion);
                 $('#usuario_cre_det').val(info.usuario_creacion);
                 $('#usuario_mod_det').val(info.usuario_modificacion);
-                $('#email_det').val(info.email_prov);               
+                $('#email_det').val(info.email_prov);          
+                $('#exampleModalLong').modal('show');     
 
             }
             if(response =='error'){
@@ -370,7 +371,6 @@ $('.info_btn').click(function(e){
             console.log(error);
         },
     });
-    $('#exampleModalLong').modal('show');
     
 });
 });
