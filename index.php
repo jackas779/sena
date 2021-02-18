@@ -1,3 +1,3 @@
 <?php 
-header("location: codigo/index.php");
+header("location: codigo/pre_login.php");
 ?>

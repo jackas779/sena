@@ -87,10 +87,18 @@
                 </div>
    
                 <div class="form-group">
-                  <input type="password" minlength="5" class="form-control form-control-user" id="password" name="password" required placeholder="Contrasena">
+                  <input type="password" minlength="8" class="form-control form-control-user" id="password" name="password" required placeholder="Contrasena">
+                  <ul>
+                      <li id="mayus" style="display: none;"> Un caracter en Mayuscula</li>
+                      <li id="lower" style="display: none;"> Un caracter en minuscula</li>
+                      <li id="special" style="display: none;"> Un caracter especial</li>
+                      <li id="numbers" style="display: none;"> Un caracter numerico</li>
+                      <li id="len" style="display: none;"> Minimo 8 carateres</li>
+                      <li id="mensa" style="display: none;" > Es requerida la contraseña</li>
+                    </ul>
                 </div>
                 <div class="form-group">
-                  <input type="password" minlength="3" class="form-control form-control-user" id="rpassword" name="rpassword" required placeholder="Repita Contrasena">
+                  <input type="password"  class="form-control form-control-user" id="rpassword" name="rpassword" required placeholder="Repita Contrasena">
                 </div>
 
                 <input type="hidden" id="id_estado" name="id_estado" value="1">
@@ -144,7 +152,7 @@
   <script src="../js/demo/chart-area-demo.js"></script>
   <script src="../js/demo/chart-pie-demo.js"></script> 
 
-
+  <script src="validacion.js"></script>                   
 
 </body>
 </html>

@@ -116,6 +116,7 @@ include("../menu_admin/banner.php");
         $bemail=stripslashes($fila['email']);
         $bid_usuario=stripslashes($fila['id_usuario']);
         $bfk_id_estado=stripslashes($fila['fk_id_estado']);
+        $bfk_id_permisos=stripslashes($fila['fk_id_permisos']);
 
         if($bfk_id_estado=="1"){
             $bfk_id_estado='activo';
@@ -142,6 +143,13 @@ include("../menu_admin/banner.php");
         if($bfk_id_estado=="inactivo"){
             echo "<td><a href='neg_cambiar_estado_usu.php?id=$bid_usuario'><i class='fas fa-times-circle text-danger'></i></a></td>";   
         }
+        if($bfk_id_permisos=="1"){
+            echo "<td><a href='neg_habilitar_usuarios.php?id=$bid_usuario' class='badge badge-success info_btn'>Admin</a></td>";   
+        }
+        if($bfk_id_permisos=="0"){
+            echo "<td><a href='neg_habilitar_usuarios.php?id=$bid_usuario' class='badge badge-danger info_btn'>No Admin</a></td>";   
+        }
+        
        
         echo "</tr>";
         echo "</tbody>";

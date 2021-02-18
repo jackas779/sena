@@ -9,20 +9,20 @@ $(function(){
     var regExp= [mayus, special, numbers, lower,len];
     var elementos = [$("#mayus"),$("#special"),$("#numbers"),$("#lower"),$("#len")];
 
-    $("#password123").on("keyup", function(){
+    $("#password").on("keyup", function(){
 
-        var pass = $("#password123").val();
+        var pass = $("#password").val();
         // *manera simple mayus.test(pass) && special.test(pass) && numbers.test(pass) && lower.test(pass)
         //&& len.test(pass)
         var check = 0; 
         var cla = 0 ;
         for(var i = 0;i<5;i++){
             if(regExp[i].test(pass)){
-                elementos[i].hide();
+                elementos[i].show();
                 check ++;
             }
             else{
-                elementos[i].show();
+                elementos[i].hide();
             }
         }
         if(check >= 0 && check <=2){
@@ -35,9 +35,9 @@ $(function(){
             $("#mensaje").text("Muy segura").css("color","green");
         }
     });
-    $("#repassword123").on("keyup",function(){
-        var repass = $("#repassword123").val();
-        var pass = $("#password123").val();
+    $("#rpassword").on("keyup",function(){
+        var repass = $("#rpassword").val();
+        var pass = $("#rpassword").val();
         if(repass == pass){
             $("#remensaje").text("Coinciden").css("color","green");
         }else if(repass==""){
@@ -48,3 +48,16 @@ $(function(){
     });
 
 });
+
+var mensaje= document.getElementById('password'),num=0;
+function mess()
+{
+    if(num==0){
+        document.getElementById('mensa').style.display= 'block';
+        document.getElementById('mensa').style.color="red";
+        document.getElementById('password').style.borderColor="red";
+    }
+
+}
+
+mensaje.addEventListener('focusout',mess,true);
