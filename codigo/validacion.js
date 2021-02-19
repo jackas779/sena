@@ -49,15 +49,32 @@ $(function(){
 
 });
 
-var mensaje= document.getElementById('password'),num=0;
+var mensaje= document.getElementById('password'),num= 0;
+
+$('#password').on("keyup", function(){ 
+    //console.log(num);
+    var po=$("#password").val();
+    document.getElementById('password').style.borderColor="none";
+    document.getElementById('mensa').style.display= 'none';
+    if(po==''){
+        num=0;
+        return num;
+    }else{
+        num=1;
+        return num;
+    }
+});
+
 function mess()
 {
     if(num==0){
         document.getElementById('mensa').style.display= 'block';
         document.getElementById('mensa').style.color="red";
-        document.getElementById('password').style.borderColor="red";
+        //document.getElementById('password').style.borderColor="green";
     }
-
+    if(num != 0){
+        document.getElementById('mensa').style.display= 'none';
+    }
 }
 
 mensaje.addEventListener('focusout',mess,true);
