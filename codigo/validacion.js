@@ -16,6 +16,9 @@ $(function(){
         //&& len.test(pass)
         var check = 0; 
         var cla = 0 ;
+        if(special.test(pass)){
+            console.log("fue un exito");
+        }
         for(var i = 0;i<5;i++){
             if(regExp[i].test(pass)){
                 elementos[i].show();
